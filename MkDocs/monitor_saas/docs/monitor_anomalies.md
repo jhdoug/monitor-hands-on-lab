@@ -36,22 +36,26 @@ An [instance dashboard](https://www.ibm.com/support/knowledgecenter/SSQR84_monit
 4.  Expand  `Metric (calculated)` to see the functions used to create the simulated data like generating a random number to cause a fault like `abnormal_stop_count`. ![View Robot calculated metric functions](/img/monitor_saas/i95.png)
 5.  Click the `Dashboards` tab to  to see the list of `Entities`(Robots) in the `Instance Dashboards` table.
 6.  Click one of the Robot instance dashboards that have been automatically created for you by Monitor. ![View Robot calculated metric functions](/img/monitor_saas/i96.png) &nbsp;
-7.  Click on the `Back from` calendar drop down to see historical performance metrics of this robot.   ![View Robot calculated metric functions](/img/monitor_saas/i97.png) &nbsp;
-8.  Note the different types of [cards](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/dashboard_json_ref.html) in your dashboard.  Monitor provides multiple types of cards to choose from when configuring a dashboard.
-9.  In this exercise the Instance Dashboard for the Robots was automatically created for you.  You can also export a summary dashboard and import it by managing instance dashboards as shown in the next exercise.  Take a moment to see what cards were created for you in the instance dashboard.
+7.  Click on the `End date` calendar drop down to see historical performance metrics of this robot.   ![View Robot calculated metric functions](/img/monitor_saas/i97.png) &nbsp;
+8.  Note the different types of [cards](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/dashboard_json_ref.html){target=_blank} in your dashboard.  Monitor provides multiple types of cards to choose from when configuring a dashboard.
+9.  In this exercise the Instance Dashboard for the Robots was automatically created for you.  Take a moment to see what cards were created for you in the instance dashboard.
 
-*Value Cards*
+*Value Cards*  
 A value card shows a single or multiple entity metric value. A value may be attributed with a title, a label and a unit. The value may be given a precision and rules on threshold levels.  A value card may be sized as a wide or tall card with big or small sized numbers.
 
-*Line Chart Cards*
+*Line Chart Cards*  
 A line chart card shows time-series data from a single or multiple entities as a chart with time and value axes. The chart may be given a title and labels on the axes. The line chart may be shown in full screen mode and is added a data table with the metrics values plotted in the chart.
 A line chart may also be overlaid with an Alert metric indicating any anomalies on the metric.
 
-*Table Cards*
+*Table Cards*  
 A table card shows tabular data by columns. A table card is configured by referencing some data source for each column. The table may group data source values and present a count rather than each individual value.  An Alerts Table is a preconfigured table presenting alert information.  You will add one later for tabulating alerts.
 
-*Image cards*
+*Image cards*  
 An image card shows as a custom image with configured hotspots. Each hotspot is indicated at a position on the image with an icon and configured as a value card with entity metrics. The value card is shown when clicking on the hot spot.  You will add one later for displaying an image of the robot.
+
+!!! tip
+    Find additional information of the existing cards [here](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/cards_json_ref.html){target=_blank}.
+
 
 ### Edit Instance Dashboard
 In this exercise you will modify the layout of the individual robot instance dashboard.  An asset instance dashboard is a configuration of cards, layout and the datasource metrics for a specific asset. One instance dashboard json configuration file is used for all robots of your Robot Entity type.  You can export and dashboard configuration file adding new cards.  You can also reuse and import dashboard configuration files from others.
