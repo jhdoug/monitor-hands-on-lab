@@ -19,24 +19,26 @@ Watch the 10 min video explaining why anomalies matter to business.
 ## Create Simulated Robots to Monitor
 In this exercise you quickly create some simulated robot operational data that you will use in your exercises in this Exercise.  You will use data from simulated industry robots as the assets you are responsible to monitor.
 
-1.  Click `Home` to see the top level tasks you can do with Monitor. ![Home](/img/monitor_saas/i89.png) &nbsp;
-2.  Click `Monitor Entities` You will create a simulated set of robot assets (entities) that represent an assembly line of manufacturing robots.
-3.  Click `Create entity type` button. ![Create an Entity Type](/img/monitor_saas/i90.png) &nbsp;
-4.  Select on `Sample Robot` and click on `Next`button.  ![Create a Robot Entity Type and simulated robot metrics](/img/monitor_saas/i91.png) &nbsp;
-5.  Edit the Entity Type name prepending your own initials `Your_Initials_Robots_Type`.![Create a Robot Entity Type and simulated robot metrics](/img/monitor_saas/i92.png) &nbsp;
-6.  Click `Submit` button.  Monitor will create  a set of robots you can monitor with simulated random data.  
+1.  Click `Home` to see the top level tasks you can do with Monitor.
+2.  Click `Setup assets and locations` or `Manage` in the left menu. You will create a simulated set of robot assets (entities) that represent an assembly line of manufacturing robots.![Home](/img/monitor_saas/i89.png) &nbsp;
+3.  Click the `+` button to add asset type. ![Add Asset Type](/img/monitor_saas/i90.png) &nbsp;
+4.  Select `Sample Robot Type` and click the `Next` button.  ![Create a Robot Asset Type and simulated robot metrics](/img/monitor_saas/i91.png) &nbsp;
+5.  Edit the Entity Type name prepending your own initials `YourInitials_Robots_Type`.![Create a Robot Entity Type and simulated robot metrics](/img/monitor_saas/i92.png) &nbsp;
+6.  Click `Create` button.</br>Monitor will create  a set of robots you can monitor with simulated random data.
+</br>Once created you will see the following information. ![Robot Entity Type is ready and simulated robot metrics flow](/img/monitor_saas/i92b.png) &nbsp;
 
 ## Explore Instance Dashboards
 An [instance dashboard](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/tutorials/instance_dashboard_tutorial.html) displays the operational metrics for a single asset, i.e. one specific industry robot. The data metrics of the robot are presented on the dashboard using cards.
 
-1.  On the `Data` tab, expand `Metric` to see the metrics that Monitor has created for your Robots with simulated time series data.   The outline shows the acc, load, speed and torque metrics in the data items outline. ![View recent (Less than 24 hours) Robot metrics across all robots](/img/monitor_saas/i93.png) &nbsp;
-2.  Expand  `Dimensions` to see the classifications Monitor has created to filter and summarize all the Robots key performance metrics like by `Manufacturer`.  [Dimensions](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/analytics/as_add_dimensions_api.html) are meta data for describing an asset that can be used also be used to filter assets in tables or in functions. ![View Robot dimensions across all robots](/img/monitor_saas/i94.png) &nbsp;
-3.  Expand  `Metric (calculated)` to see the functions used to create the simulated data like generating a random number to cause a fault like `abnormal_stop_count`. ![View Robot calculated metric functions](/img/monitor_saas/i95.png)
-4.  Click the `Dashboards` tab to  to see the list of `Entities`(Robots) in the `Instance Dashboards` table.
-5.  Click one of the Robot instance dashboards that have been automatically created for you by Monitor. ![View Robot calculated metric functions](/img/monitor_saas/i96.png) &nbsp;
-6.  Click on the `Back from` calendar drop down to see historical performance metrics of this robot.   ![View Robot calculated metric functions](/img/monitor_saas/i97.png) &nbsp;
-7.  Note the different types of [cards](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/dashboard_json_ref.html) in your dashboard.  Monitor provides multiple types of cards to choose from when configuring a dashboard.
-8.  In this exercise the Instance Dashboard for the Robots was automatically created for you.  You can also export a summary dashboard and import it by managing instance dashboards as shown in the next exercise.  Take a moment to see what cards were created for you in the instance dashboard.
+1.  Click `Home` to see the top level tasks you can do with Monitor. Click `Monitor entities` or `Monitor` in the left menu. Search for and click on `YourInitials_Robots_Type`. ![View Robot Overview](/img/monitor_saas/i93a.png) &nbsp;
+2.  On the `Data` tab, expand `Metric` to see the metrics that Monitor has created for your Robots with simulated time series data.   The outline shows the acc, load, speed and torque metrics in the data items outline. ![View recent (Less than 24 hours) Robot metrics across all robots](/img/monitor_saas/i93b.png) &nbsp;
+3.  Expand  `Dimensions` to see the classifications Monitor has created to filter and summarize all the Robots key performance metrics like by `Manufacturer`.  [Dimensions](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/analytics/as_add_dimensions_api.html) are meta data for describing an asset that can be used also be used to filter assets in tables or in functions. ![View Robot dimensions across all robots](/img/monitor_saas/i94.png) &nbsp;
+4.  Expand  `Metric (calculated)` to see the functions used to create the simulated data like generating a random number to cause a fault like `abnormal_stop_count`. ![View Robot calculated metric functions](/img/monitor_saas/i95.png)
+5.  Click the `Dashboards` tab to  to see the list of `Entities`(Robots) in the `Instance Dashboards` table.
+6.  Click one of the Robot instance dashboards that have been automatically created for you by Monitor. ![View Robot calculated metric functions](/img/monitor_saas/i96.png) &nbsp;
+7.  Click on the `Back from` calendar drop down to see historical performance metrics of this robot.   ![View Robot calculated metric functions](/img/monitor_saas/i97.png) &nbsp;
+8.  Note the different types of [cards](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/dashboard_json_ref.html) in your dashboard.  Monitor provides multiple types of cards to choose from when configuring a dashboard.
+9.  In this exercise the Instance Dashboard for the Robots was automatically created for you.  You can also export a summary dashboard and import it by managing instance dashboards as shown in the next exercise.  Take a moment to see what cards were created for you in the instance dashboard.
 
 *Value Cards*
 A value card shows a single or multiple entity metric value. A value may be attributed with a title, a label and a unit. The value may be given a precision and rules on threshold levels.  A value card may be sized as a wide or tall card with big or small sized numbers.
@@ -51,7 +53,7 @@ A table card shows tabular data by columns. A table card is configured by refere
 *Image cards*
 An image card shows as a custom image with configured hotspots. Each hotspot is indicated at a position on the image with an icon and configured as a value card with entity metrics. The value card is shown when clicking on the hot spot.  You will add one later for displaying an image of the robot.
 
-## Edit Instance Dashboard
+### Edit Instance Dashboard
 In this exercise you will modify the layout of the individual robot instance dashboard.  An asset instance dashboard is a configuration of cards, layout and the datasource metrics for a specific asset. One instance dashboard json configuration file is used for all robots of your Robot Entity type.  You can export and dashboard configuration file adding new cards.  You can also reuse and import dashboard configuration files from others.
 
 1.  Click the `gear icon` to modify the layout of your robot instance dashboard.  This dashboard template is shared by all robots in your Entity Type. ![Manage Instance Robot dashboard](/img/monitor_saas/i98.png) &nbsp;
@@ -61,7 +63,7 @@ In this exercise you will modify the layout of the individual robot instance das
 5.  Click on `Save` to save the new dashboard layout.
 
 
-# Create a Summary Dashboard
+## Create a Summary Dashboard
 In the previous exercise you modified an instance dashboard for each Robot.   In this exercise you will create a [Summary Dashboard](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/dashboard/tutorials/summary_dashboard_tutorial.html).  There is one summary dashboard presenting aggregated and filtered performance KPI across all robots of the type.  A summary dashboard allows you to see the metrics for a filtered group of assets.  "Show me all robots from a manufacturer and with a specific firmware.""
 
 These filters are called dimensions in Monitor.  Later in this Exercise you will learn how to assign dimensions to the entities. Our simulated robots already have the appropriate dimensions assigned to each robot.  Robot 73000 may have a manufacturer GHI Industries and Robot 73002 may have a manufacturer Rentech. A summary dashboard allows you filter assets and then compute the data metrics aggregations for the applied filter.  For example, the Max, Min and Mean torque of all robots for the filtered scope of a selected manufacturer.
@@ -76,7 +78,7 @@ A summary dashboard uses time grains when computing the aggregations.  Monitor c
 ![Data filter and data aggregation using dimensions](/img/monitor_saas/i103.png) &nbsp;
 6.  Select the `daily` time grain
 7.  Accept the default value for `timestamp`
-8.  The simulated robot data that was created by Monitor also includes dimensions.  Select `load_rating` as the lowest-level dimension and `manufacturer` as the parent dimension
+8.  The simulated robot data that was created by Monitor also includes dimensions.  Select `load_rating` as the lowest-level dimension and `firmware` as the parent dimension
 9.  Select `firmware` as the mid-level dimension and `manufacturer` as the parent dimension
 10.  Select `manufacturer` as the dimension and leave `None` as the parent since it is the top level filter and aggregation we want to see.
 11. Click `Next` and choose the max, min and mean for aggregation methods for all the number metrics. ![Assign dimensions for order of aggregations](/img/monitor_saas/i104.png) &nbsp;
@@ -88,7 +90,7 @@ A summary dashboard uses time grains when computing the aggregations.  Monitor c
 15.  Click on `Data` tab and expand the `Metrics (calculated)` section of the `Data Items` to see the daily min, max and mean calculated metrics.  They should look something like the figure below. ![View the min, max and mean calculated metrics ](/img/monitor_saas/i131.png) &nbsp;
 16.  Optionally repeat the steps above to create summary dashboards to create hourly, weekly and monthly aggregation performance metrics summaries of the all robots.
 
-# Add Metric Line Card
+## Add Metric Line Card
 You need anomalies to be able to detect anomalies.  Monitor provides simulated anomalies that you can apply to learn about anomaly detection.  In this exercise you will:
 
 *  Add a simulated anomaly metric named `travel_time_anomaly`.
@@ -181,7 +183,7 @@ In this part of the exercise you will visualize the simulated `travel_time_anoma
 14.  Choose the `file` you updated with the line card click `open` to import your updated JSON file.
 15.  Your instance dashboard should now look similar to the one below and have a `travel_time_anomaly` Card with some extreme anomalies like the one in the red rectangle. ![Robot Instance Dashboard](/img/monitor_saas/i114.png).
 
-# Add Anomaly Detection
+## Add Anomaly Detection
 Maximo Asset Monitor includes models to [detect anomalies](https://www.ibm.com/support/knowledgecenter/SSQR84_monitor/iot/analytics/as_detect_predict.html) in the function catalog.  The anomaly detection functions can detect many types of anomaly patterns.  These include:
 
 *  *Varying signal becomes flat line* which can be caused by a defective or tampered with sensor.
@@ -268,7 +270,7 @@ You will add an anomaly function that will provide a score of how likely the sin
 
 <br>
 
-##Add a Multi Series Line Chart using the UI widget
+## Add a Multi Series Line Chart using the UI widget
 1.  Click on the `gear icon` and choose Manage instance dashboard
 2.  Click on `Time series line`
 3.  Title: Anomaly Scores for Travel Time
@@ -286,7 +288,7 @@ You will add an anomaly function that will provide a score of how likely the sin
 ![Line card settings](/img/monitor_saas/i203.png)
 ![Line chart](/img/monitor_saas/i204.png)
 
-##Add a Multi Series Line Chart using JSON
+## Add a Multi Series Line Chart using JSON
 
 Add a line chart** to visually compare if high anomaly model scores correlate with the robot `travel_time_anomaly` metric on each robot instance dashboard.  In this exercise you will add a multi series line chart card to your instance dashboard that plots the anomaly model scores for `time_travel_anomaly` metric.  You can then visually correlate which models are effective at detecting anomalies by seeing which model scores are high when the anomalies happen.
 
