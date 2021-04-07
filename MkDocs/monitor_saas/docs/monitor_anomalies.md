@@ -58,13 +58,13 @@ An image card shows as a custom image with configured hotspots. Each hotspot is 
 
 
 ### Edit Instance Dashboard
-In this exercise you will modify the layout of the individual robot instance dashboard.  An asset instance dashboard is a configuration of cards, layout and the datasource metrics for a specific asset. One instance dashboard json configuration file is used for all robots of your Robot Entity type.  You can export and dashboard configuration file adding new cards.  You can also reuse and import dashboard configuration files from others.
+In this exercise you will modify the layout of the individual robot instance dashboard.  An asset instance dashboard is a configuration of cards, layout and the datasource metrics for a specific asset. The instance dashboard configuration is used for all robots of your Robot Entity type.  You can export the dashboard configuration JSON file so you can reuse it or store it as backup. You will use the UI configuration to change the look of the dashboard as the robot template is not pretty. 
 
 1.  Click the `gear icon` to modify the layout of your robot instance dashboard.  This dashboard template is shared by all robots in your Entity Type. ![Manage Instance Robot dashboard](/img/monitor_saas/i98.png) &nbsp;
-2.  Monitor provides a responsive user interface as the display size of the device or browser window changes you can reposition the cards.  Change the card layout of your dashboard by dragging cards around with you mouse. ![View Robot instance dashboard](/img/monitor_saas/i100.png) &nbsp;
-3.  Once you are satisfied with the card layout, change the width of the browser window to a smaller size.  Note the `Dashboard Size` of the layout has changed.  Once again change the layout of your dashboard by dragging cards around with your mouse. ![View Robot instance dashboard](/img/monitor_saas/i101.png) &nbsp; The dashboard configuration saves all the adjustments you make to the layout for each resize of your browser window.
-4.  Click on `Export` button. The dashboard configuration file in a json format is saved to your local downloads directory on your computer.  
-5.  Click on `Save` to save the new dashboard layout.
+2.  Monitor provides a responsive user interface as the display size of the device or browser window changes you can reposition the cards. ![View Robot instance dashboard](/img/monitor_saas/i100.png) &nbsp;
+3.  The default size is of the dashboard is `Fit to screen`. Change the card layout of your dashboard by dragging cards around or resize the cards using your mouse - until it looks like below. Repeat that for the other screen sizes if you wish. ![View Robot instance dashboard](/img/monitor_saas/i101a.png) &nbsp; The dashboard configuration saves all the adjustments you make to the layout for each screen size.
+4.  Click on `Save and close` to save the new dashboard layout. ![View Robot instance dashboard](/img/monitor_saas/i101b.png) &nbsp;
+5.  Resize the browser window to see each of the different sizes.
 
 
 ## Create a Summary Dashboard
