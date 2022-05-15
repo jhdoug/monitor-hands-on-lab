@@ -3,7 +3,7 @@
 
 - Juan Gu - <gujuan@ibm.com>
 
-In this exercise, user can understand how the model works in hpu, and some examples of customization on ootb notebooks.
+In this exercise, you will understand how the model works in hpu, and some examples of customization on ootb notebooks.
 
 **Pre-requisites**
 
@@ -11,14 +11,14 @@ Ensure you have access to :<br>
 - MAS v8.7 Health and Predict Utilities<br> 
 - HPU dataloader URL<br> 
 - Waston studio access<br> 
-- Sample ST(Substation Transformer) data for hpu, and make sure required data are loaded through dataloader via App Connect. Check out the sample data folder structure as below.<br> 
+- Sample ST(Substation Transformer) data for HPU, and make sure required data are loaded through dataloader via App Connect. Check out the sample data folder structure as below.<br> 
 ![drawing](/img/apm_8.7/hpu_model_st_sample_data_overview.png){ width=70% height=70% }<br>   
 
 Where to put the sample data??
 
 ## Health and Predict Utilities out of the box models
 
-Supported Asset classes listed in below table.
+### Supported Asset classes listed in below table
 
 
 |  Asset class  | Model |
@@ -44,6 +44,12 @@ Supported Asset classes listed in below table.
 
 
 **Note**, some asset classes have subtype, like CIRCUITBREAKER or UNDERGROUNDTRANSMISSIONCABLE
+
+
+### HPU Model Calculation Methodology
+
+![drawing](/img/apm_8.7/hpu_model_bctc.png){ width=100% height=100% }<br>   
+
 
 
 ## Create a score group for ST assets
@@ -76,14 +82,167 @@ Supported Asset classes listed in below table.
 
 
 ## Watson Studio notebooks and jobs
-In hpu, the calculation happens in the jobs in Watson Studio. Each asset type has a configure file, notebook, and job deployed on Watson Studio project. When user clicks `Recalculate scores` on UI, it triggers the job to run, do the calculation, and save results to DB.<br> 
-For example, for ST(Substation Transformer), configuration file is IBM-Transformers-Tap-Changers-DGA-4.0.0.cfg, notebook is IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb, job is Run-IBM-Transformers-Tap-Changers-DGA-4-0-0
+In HPU, the calculation happens in the jobs in Watson Studio. Each asset type has a configure file, notebook, and job deployed on Watson Studio project. When user clicks `Recalculate scores` on UI, it triggers the job to run, do the calculation, and save results to DB.<br>  
+
+### ST model configuration 
+For ST(Substation Transformer), configuration file is IBM-Transformers-Tap-Changers-DGA-4.0.0.cfg
 ![drawing](/img/apm_8.7/hpu_model_ws_cfg.png){ width=100% height=100% }<br>  
+
+In the configuration file, under `Common` section `defaultsetup.components` has all the scores group, contributors listed, and functions and paramteres for each item. In `defaultsetup.dependencies` describes the dependency. E.g Health depends on `Transformer health index` and `Tap changer health index`, `Transformer health index` group calculated base on several contributors, function details can be found in `[ext_function_name]` in the file. E.g For `Health` ext_function_name is configured as `[Health Weighted]`, the implementation is `common_calculate_weighted`.
+
+```
+[Common]
+name = IBM Transformers Tap Changers DGA 4.0.0
+desc = Transformers tap changers dga model
+notebook = IBM-Transformers-Tap-Changers-DGA-4.0.0
+job = Run-IBM-Transformers-Tap-Changers-DGA-4-0-0
+usewith = asset,locations
+defaultsetup.components =
+    type, name, ext_function_name, description, parameters
+    "CONTRIBUTOR","Bushing condition", "Bushing Condition", "Bushing condition contributor","Condition meter=B-CONDIT"
+    "CONTRIBUTOR","Oil leaks","Oil Leaks","Oil leaks contributor","Condition meter=OIL-LEAKS"
+    "CONTRIBUTOR","Main Tank/Cabinets and control condition","Main Tank/Cabinets and Control Condition","Main Tank/Cabinets and control condition contributor","Condition meter=MAIN-TCC"
+    "CONTRIBUTOR","Conservator/Oil preservation system condition","Conservator/Oil Preservation System Condition","Conservator/Oil preservation system condition contributor","Condition meter=CO-PRES"
+    "CONTRIBUTOR","Radiators/Cooling system condition","Radiators/Cooling System Condition","Radiators/Cooling system condition contributor","Condition meter=RC-SYS"
+    "CONTRIBUTOR","Foundation/Support Steel/Grounding condition","Foundation/Support Steel/Grounding Condition","Foundation/Support Steel/Grounding condition contributor","Condition meter=FS-SG"
+    "CONTRIBUTOR","Overall power transformer condition","Overall Power Transformer Condition","Overall Power Transformer Condition contributor","Condition meter=OVER-PT"
+    "CONTRIBUTOR","Winding doble test","Winding Doble Test","Winding Doble Test contributor","Condition meter=WINDDT"
+    "CONTRIBUTOR","Oil quality test","Oil Quality Test","Oil Quality Test contributor","Condition meter=OIL-QT"
+    "CONTRIBUTOR","Thermograph (IR)","Thermograph (IR)","Thermograph (IR) contributor","Condition meter=ST-THERM"
+    "CONTRIBUTOR","Bushing DGA analysis","Bushing DGA Analysis","Bushing DGA Analysis contributor","Condition meter=B-DGAOA"
+    "CONTRIBUTOR","Furan oil analysis","Furan Oil Analysis","Furan Oil Analysis contributor","Condition meter=FUR-OA"
+    "CONTRIBUTOR","DGA oil analysis","DGA Oil Analysis","DGA Oil Analysis contributor","H2 meter=DGAR-H2,CH4 meter=DGAR-CH4,C2H6 meter=DGAR-C2H6,C2H4 meter=DGAR-C2H4,C2H2 meter=DGAR-C2H2,CO meter=DGAR-CO,CO2 meter=DGAR-CO2"
+    "GROUP", "Transformer health index","Group","Transformer Health Index Formulation",
+    "CONTRIBUTOR","Tap changer tank condition","Tap Changer Tank Condition","Tap Changer Tank Condition contributor","Condition meter=TANK-CON"
+    "CONTRIBUTOR","Tap changer tank leaks","Tap Changer Tank Leaks","Tap Changer Tank Leaks contributor","Condition meter=TANK-L"
+    "CONTRIBUTOR","Tap changer gaskets, seals and pressure relief condition","Tap Changer Gaskets, Seals and Pressure Relief Condition","Tap Changer Gaskets, Seals and Pressure Relief Condition contributor","Condition meter=GS-PR"
+    "CONTRIBUTOR","Tap changer LTC control and mechanism cabinet","Tap Changer LTC Control and Mechanism Cabinet","Tap Changer LTC Control and Mechanism Cabinet contributor","Condition meter=LTC-CMC"
+    "CONTRIBUTOR","Tap changer control and mechanism cabinet component condition","Tap Changer Control and Mechanism Cabinet Component Condition","Tap Changer Control and Mechanism Cabinet Component Condition contributor","Condition meter=CTRMEC-CO"
+    "CONTRIBUTOR","Overall tap changer condition","Overall Tap Changer Condition","Overall Tap Changer Condition contributor","Condition meter=OVER-TCC"
+    "CONTRIBUTOR","Tap changer oil analysis (DGA Metal Content)","Tap Changer Oil Analysis (DGA Metal Content)","Tap Changer Oil Analysis (DGA Metal Content) contributor","Condition meter=TC-OQT"
+    "CONTRIBUTOR","Tap changer oil quality test","Tap Changer Oil Quality Test","Tap Changer Oil Quality Test contributor","Condition meter=TC-QT"
+    "GROUP", "Tap changer health index","Group","Tap Changer Health Index Formulation",
+    "CONTRIBUTOR", "Age", "Age", "Age function contributor",""
+    "CONTRIBUTOR", "Number of customer", "Number of Customer", "Number of Customer contributor","NOC attribute=NUMBEROFCUSTOMERS,Feeder attribute=FEEDER"
+    "SCORE", "Health", "Health Weighted", "Weighted health calculation",
+    "SCORE", "Effective age", "Effective Age", "Effective Age of the asset","Mean life=30"
+    "SCORE", "End of life", "End Of Life", "End of Life of the asset",
+    "SCORE", "Criticality", "Criticality", "Criticality of the asset",
+    "SCORE", "Risk", "Risk", "Risk of the asset",
+    "SCORE", "Duval triangle score", "Duval Triangle Score","Duval triangle for dissolved gas analysis",
+    "SCORE", "History of combustible gas concentration", "DGA Trend Score","History of combustible gas concentration",
+
+defaultsetup.dependencies =
+    parent, child, role, weight 
+    "Transformer health index","Bushing condition",,"3"
+    "Transformer health index","Oil leaks",,"3"
+    "Transformer health index","Main Tank/Cabinets and control condition",,"3"
+    "Transformer health index","Conservator/Oil preservation system condition",,"3"
+    "Transformer health index","Radiators/Cooling system condition",,"3"
+    "Transformer health index","Foundation/Support Steel/Grounding condition",,"3"
+    "Transformer health index","Overall power transformer condition",,"8"
+    "Transformer health index","Winding doble test",,"14"
+    "Transformer health index","Oil quality test",,"10"
+    "Transformer health index","Thermograph (IR)",,"8"
+    "Transformer health index","Bushing DGA analysis",,"14"
+    "Transformer health index","Furan oil analysis",,"14"
+    "Transformer health index","DGA oil analysis",,"14"
+    "Health","Transformer health index",,"80"
+    "Tap changer health index","Tap changer tank condition",,"6"
+    "Tap changer health index","Tap changer tank leaks",,"6"
+    "Tap changer health index","Tap changer gaskets, seals and pressure relief condition",,"6"
+    "Tap changer health index","Tap changer LTC control and mechanism cabinet",,"6"
+    "Tap changer health index","Tap changer control and mechanism cabinet component condition",,"6"
+    "Tap changer health index","Overall tap changer condition",,"21"
+    "Tap changer health index","Tap changer oil analysis (DGA Metal Content)",, "28"
+    "Tap changer health index","Tap changer oil quality test",,"21"
+    "Health","Tap changer health index",,"20"
+    "Criticality", "Number of customer",,"100"
+    "Effective age", "Health", "HEALTH", ""
+    "Effective age", "Age", "AGE", ""
+    "End of life", "Effective age", "EFFECTIVEAGE",""
+    "Risk", "Criticality", "CRITICALITY", ""
+    "Risk", "End of life", "EOL", ""
+
+.......
+
+[Group]
+type = GROUP
+desc = Group of contributors
+impl = common_calculate_weighted
+calctype = WEIGHT
+
+[Health Weighted]
+type = SCORE
+scoretype = HEALTH
+desc = Weighted scores from each contributor
+impl = common_calculate_weighted
+calctype = WEIGHT
+
+
+[End Of Life]
+type = SCORE
+scoretype = EOL
+desc = End of life of the asset
+impl = common_calculate_end_of_life
+calctype = NONE
+roles = EFFECTIVEAGE
+parameter.curve.name = Curve
+parameter.curve.type = string
+parameter.curve.desc = Curve of assets
+parameter.curve.default = 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100
+
+
+[Effective Age]
+type = SCORE
+scoretype = EFFECTIVEAGE
+desc = Effective age score
+impl = common_calculate_effective_age
+calctype = NONE
+roles = HEALTH,AGE
+# parameter.<id>.<item>
+parameter.mean_life.name = Mean life
+parameter.mean_life.type = number
+parameter.mean_life.format = decimal
+parameter.mean_life.desc = mean life of the asset
+parameter.mean_life.default = 30
+
+[Criticality]
+type = SCORE
+scoretype = CRITICALITY
+desc = Criticality score
+impl = common_calculate_weighted
+calctype = WEIGHT
+
+
+[Risk]
+type = SCORE
+scoretype = RISK
+desc = Risk score
+impl = common_calculate_risk
+roles = EOL,CRITICALITY
+calctype = NONE
+
+```
+Below is the dependency of ootb st scores.<br>  
+![drawing](/img/apm_8.7/hpu_model_ws_cfg_sample.png){ width=70% height=70% }<br>  
+
+### ST model notebook 
+
+For ST(Substation Transformer), notebook is IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb as configured in cfg file.
 ![drawing](/img/apm_8.7/hpu_model_ws_notebook.png){ width=100% height=100% }<br>   
+
+### ST Watson Studio job 
+For ST(Substation Transformer), job is Run-IBM-Transformers-Tap-Changers-DGA-4-0-0.
 ![drawing](/img/apm_8.7/hpu_model_ws_job.png){ width=100% height=100% }<br>   
+After login Watson Studio, enter the project, and click the `Job` tab, click the job defined in configruation file, and then click `Eidt Configuration`, click `Next` and `Next`, we can see by default it binds to `latest` version and runtime is `Default Python 3.8`, close the eidt page on the right `X`.
+![drawing](/img/apm_8.7/hpu_model_ws_job_02.png){ width=100% height=100% }<br>   
+![drawing](/img/apm_8.7/hpu_model_ws_job_01.png){ width=100% height=100% }<br>   
+
+
 
 ### Customize notebook model, like DGA, NOC
-
+User might want to change some of the methodology how the score calculated,for example.
 
 
 ### Enable debug mode
