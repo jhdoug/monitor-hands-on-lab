@@ -3,7 +3,7 @@
 
 - Juan Gu - <gujuan@ibm.com>
 
-In this exercise...
+In this exercise, user can understand how the model works in hpu, and some examples of customization on ootb notebooks.
 
 **Pre-requisites**
 
@@ -11,8 +11,8 @@ Ensure you have access to :<br>
 - MAS v8.7 Health and Predict Utilities<br> 
 - HPU dataloader URL<br> 
 - Waston studio access<br> 
-- Sample ST(Substation Transformer) data for hpu, and make sure required data are loaded through dataloader via App Connect.Check out the sample data folder structure.<br> 
-![drawing](/img/apm_8.7/hpu_session_01_st_sample_data_overview.png){ width=70% height=70% }
+- Sample ST(Substation Transformer) data for hpu, and make sure required data are loaded through dataloader via App Connect. Check out the sample data folder structure as below.<br> 
+![drawing](/img/apm_8.7/hpu_model_st_sample_data_overview.png){ width=70% height=70% }<br>   
 
 Where to put the sample data??
 
@@ -48,40 +48,43 @@ Supported Asset classes listed in below table.
 
 ## Create a score group for ST assets
 1. Login and go to Health and Predict Utilities application.
-![drawing](/img/apm_8.7/hpu_session_01_sc_setup_0.png){ width=100% height=100% }
+![drawing](/img/apm_8.7/hpu_model_sc_setup_0.png){ width=100% height=100% }<br>   
 
 2. Click `Scoring and DGA settings` in the menu,in Scoring and DGA settings page, click `Create a scoring and DGA group` button.
-![drawing](/img/apm_8.7/hpu_session_01_sc_setup_1.png){ width=100% height=100% }
+![drawing](/img/apm_8.7/hpu_model_sc_setup_1.png){ width=100% height=100% }<br>   
 
 3. In the create score group page,fill in name,description, select `Asset` object,choose `Connectigng group to notebook`.
 
     Then click `Select` to choose `IBM Transformers Tap Changers DGA 4.0.0` notebook in the notebook list dialog,click `Use notebook`.
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_2.png){ width=100% height=100% }
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_2.png){ width=100% height=100% }<br>   
 
     Scroll down `query` part, click `Select` to open query dialog, user can select an existing query, or click `+` button to create a new query for ST assets.
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_3.png){ width=100% height=100% }
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_4.png){ width=100% height=100% }
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_3.png){ width=100% height=100% }<br>   
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_4.png){ width=100% height=100% }<br>   
 
     After select the notebook and query, click `Create` to create the score group.
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_5.png){ width=100% height=100% }
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_5.png){ width=100% height=100% }<br>   
 
 4. After score group is created, system will redirect to the score group detail page, in this page, user can see all the scores and the asset list.
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_6.png){ width=100% height=100% }
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_6.png){ width=100% height=100% }<br>   
 
     Click the score in the table, and active it on the right, scores need to be activated one by one based on the depedency.
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_7.png){ width=100% height=100% }
-    ![drawing](/img/apm_8.7/hpu_session_01_sc_setup_8.png){ width=100% height=100% }
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_7.png){ width=100% height=100% }<br>   
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_8.png){ width=100% height=100% }<br>   
 
 5. After activing all the scores, click the `Recalculate scores` to start the analysis.
 
 
-## WS notebooks and jobs
-
-
-
-
+## Watson Studio notebooks and jobs
+In hpu, the calculation happens in the jobs in Watson Studio. Each asset type has a configure file, notebook, and job deployed on Watson Studio project. When user clicks `Recalculate scores` on UI, it triggers the job to run, do the calculation, and save results to DB.<br> 
+For example, for ST(Substation Transformer), configuration file is IBM-Transformers-Tap-Changers-DGA-4.0.0.cfg, notebook is IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb, job is Run-IBM-Transformers-Tap-Changers-DGA-4-0-0
+![drawing](/img/apm_8.7/hpu_model_ws_cfg.png){ width=100% height=100% }<br>  
+![drawing](/img/apm_8.7/hpu_model_ws_notebook.png){ width=100% height=100% }<br>   
+![drawing](/img/apm_8.7/hpu_model_ws_job.png){ width=100% height=100% }<br>   
 
 ### Customize notebook model, like DGA, NOC
+
+
 
 ### Enable debug mode
 
