@@ -234,8 +234,8 @@ For ST(Substation Transformer), notebook is IBM-Transformers-Tap-Changers-DGA-4.
 
 ### ST Watson Studio job 
 For ST(Substation Transformer), job is Run-IBM-Transformers-Tap-Changers-DGA-4-0-0.
+After login Watson Studio, enter the project, and click the `Job` tab, click the job defined in configruation file, and then click `Eidt Configuration`, click `Next` and `Next`, we can see by default it binds to `latest` version and runtime is `Default Python 3.8`, close the eidt page on the right `X`.<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_job.png){ width=100% height=100% }<br>   
-After login Watson Studio, enter the project, and click the `Job` tab, click the job defined in configruation file, and then click `Eidt Configuration`, click `Next` and `Next`, we can see by default it binds to `latest` version and runtime is `Default Python 3.8`, close the eidt page on the right `X`.
 ![drawing](/img/apm_8.7/hpu_model_ws_job_02.png){ width=100% height=100% }<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_job_01.png){ width=100% height=100% }<br>   
 
