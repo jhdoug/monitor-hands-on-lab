@@ -46,7 +46,7 @@ Where to put the sample data??
 **Note**, some asset classes have subtype, like CIRCUITBREAKER or UNDERGROUNDTRANSMISSIONCABLE
 
 
-### HPU Model Calculation Methodology. Can we showe this?
+### HPU Model Calculation Methodology. Can we show this?
 
 ![drawing](/img/apm_8.7/hpu_model_bctc.png){ width=100% height=100% }<br>   
 
@@ -252,7 +252,6 @@ Log can be checked by click one of the history run, either check directly on the
 ![drawing](/img/apm_8.7/hpu_model_ws_job_03.png){ width=100% height=100% }<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_job_04.png){ width=100% height=100% }<br>   
 
-
 ### Customize notebook model for DGA or NOC
 User can change some of the methodology how the score calculated as needed.<br>   
 
@@ -291,12 +290,19 @@ If user want to directly run the notebook to calculate the score for debug purpo
 
 Login Watson Studio, enter the project, click the `Assets` tab, enter the notebook `IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb`, click the pencil icon to edit. Click plus button to add a new cell, and put below code with actual value.
 
-Example for debugging on a certain score group.
+`maximoApiKey` can be found in Application administration page. Login Health and Predict – Utilities and click the Application administration page, click to the Start Center and in the Go To section, click Administration.On the API Keys tab, search and find maxadmin's apikey.
+![drawing](/img/apm_8.7/hpu_model_ws_notebook_apikey_01.png){ width=100% height=100% }<br>  
+![drawing](/img/apm_8.7/hpu_model_ws_notebook_apikey_02.png){ width=100% height=100% }
+
+`expgroupname` can be found in score group detail page.
+![drawing](/img/apm_8.7/hpu_model_ws_notebook_expgroupname.png){ width=50% height=50% }<br>  
+
+Code example for debugging on a certain score group.
 ```
 import os
 os.environ['maximo_context'] = '{"maximoUrl":"https://<health/manage host>/maximo/","maximoApiKey":"**************","expgroupname":"1033"}'
 ```
-Example for debugging on an individule asset.
+Code example for debugging on an individule asset.
 ```
 import os
 os.environ['maximo_context'] = '{"maximoUrl":"https://<health/manage host>/maximo/","maximoApiKey":"**************","expgroupname":"1033","siteid":"***","assetnum":"***"}'
@@ -306,9 +312,3 @@ os.environ['maximo_context'] = '{"maximoUrl":"https://<health/manage host>/maxim
 Click `Run` to run cell by cell or restart the kernel run the whole notebook.<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_notebook_run.png){ width=100% height=100% }<br>   
 **Note**, when debug in notebook directly, do not save as latest version, since it's hardcoded everything instead of getting those from health side.
-
-
-
-
-
-
