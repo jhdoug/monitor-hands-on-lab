@@ -1,9 +1,9 @@
 
-# HPU ST model walk through
+# HPU Model Walk Through
 
 - Juan Gu - <gujuan@ibm.com>
 
-In this exercise, you will learn how the model works in hpu, do simple customization on OOTB notebooks, and how to debug in a model.
+In this exercise, we will walk through ST Model as an example, explain how the model works in hpu, how to do simple customization on model notebooks, and how to debug.
 
 **Pre-requisites**
 
@@ -16,10 +16,9 @@ Ensure you have access to :<br>
 
 Where to put the sample data??
 
-## Health and Predict Utilities out of the box models
+## Health and Predict Utilities Out Of The Box Models
 
-### Supported Asset classes listed in below table
-
+### Supported Asset Classes listed in below table
 
 |  Asset class  | Model |
 |--|--|
@@ -42,53 +41,50 @@ Where to put the sample data??
 | UNDERGROUNDTRANSMISSIONCABLE - Self Contained Gas Filled (SCGF) Submarine Cables | IBM SCGF Cables 4.0.0 |
 | UNDERGROUNDTRANSMISSIONCABLE - Extruded Cross Linked Polyethylene (XLPE) Cables | IBM XLPE Cables 4.0.0 |
 
-
 **Note**, some asset classes have subtype, like CIRCUITBREAKER or UNDERGROUNDTRANSMISSIONCABLE
-
 
 ### HPU Model Calculation Methodology. Can we show this?
 
 ![drawing](/img/apm_8.7/hpu_model_bctc.png){ width=100% height=100% }<br>   
 
-
-
 ## Create a score group for ST assets
-1. Login and go to Health and Predict Utilities application.<br>   
-![drawing](/img/apm_8.7/hpu_model_sc_setup_0.png){ width=100% height=100% }<br>   
+1. Login and go to Health and Predict Utilities application.
+![drawing](/img/apm_8.7/hpu_model_sc_setup_0.png){ width=100% height=100% }
+<br>   
 
-2. Click `Scoring and DGA settings` in the menu,in Scoring and DGA settings page, click `Create a scoring and DGA group` button.<br>   
-![drawing](/img/apm_8.7/hpu_model_sc_setup_1.png){ width=100% height=100% }<br>   
+2. Click `Scoring and DGA settings` in the menu,in Scoring and DGA settings page, click `Create a scoring and DGA group` button.
+![drawing](/img/apm_8.7/hpu_model_sc_setup_1.png){ width=100% height=100% }<br>    
 
 3. In the create score group page,fill in name,description, select `Asset` object,choose `Connectigng group to notebook`.
 
-    Then click `Select` to choose `IBM Transformers Tap Changers DGA 4.0.0` notebook in the notebook list dialog,click `Use notebook`.<br>   
+    Then click `Select` to choose `IBM Transformers Tap Changers DGA 4.0.0` notebook in the notebook list dialog,click `Use notebook`.
     ![drawing](/img/apm_8.7/hpu_model_sc_setup_2.png){ width=100% height=100% }<br>   
 
-    Scroll down `query` part, click `Select` to open query dialog, user can select an existing query, or click `+` button to create a new query for ST assets.<br>   
+    Scroll down `query` part, click `Select` to open query dialog, user can select an existing query, or click `+` button to create a new query for ST assets.
     ![drawing](/img/apm_8.7/hpu_model_sc_setup_3.png){ width=100% height=100% }<br>   
     ![drawing](/img/apm_8.7/hpu_model_sc_setup_4.png){ width=100% height=100% }<br>   
 
-    After select the notebook and query, click `Create` to create the score group.<br>   
+    After select the notebook and query, click `Create` to create the score group.
     ![drawing](/img/apm_8.7/hpu_model_sc_setup_5.png){ width=100% height=100% }<br>   
 
-4. After score group is created, system will redirect to the score group detail page, in this page, user can see all the scores and the asset list.<br>   
+
+4. After score group is created, system will redirect to the score group detail page, in this page, user can see all the scores and the asset list.
     ![drawing](/img/apm_8.7/hpu_model_sc_setup_6.png){ width=100% height=100% }<br>   
 
-    Click the score in the table, and active it on the right, scores need to be activated one by one based on the depedency.<br>   
+    Click the score in the table, and active it on the right, scores need to be activated one by one based on the depedency.
     ![drawing](/img/apm_8.7/hpu_model_sc_setup_7.png){ width=100% height=100% }<br>   
-    ![drawing](/img/apm_8.7/hpu_model_sc_setup_8.png){ width=100% height=100% }<br>   
+    ![drawing](/img/apm_8.7/hpu_model_sc_setup_8.png){ width=100% height=100% }<br>    
 
 5. After activing all the scores, click the `Recalculate scores` to start the analysis.
-
 
 ## Watson Studio notebooks and jobs
 In HPU, the calculation happens in the jobs in Watson Studio. Each asset type has a configure file, notebook, and job deployed on Watson Studio project. When user clicks `Recalculate scores` on UI, it triggers the job to run, do the calculation, and save results to DB.<br>  
 
 ### ST model configuration 
-For ST(Substation Transformer), configuration file is IBM-Transformers-Tap-Changers-DGA-4.0.0.cfg.<br>   
+For ST(Substation Transformer), configuration file is IBM-Transformers-Tap-Changers-DGA-4.0.0.cfg.
 ![drawing](/img/apm_8.7/hpu_model_ws_cfg.png){ width=100% height=100% }<br>  
 
-In the configuration file, under `Common` section `defaultsetup.components` has all the scores group, contributors listed, and functions and paramteres for each item. In `defaultsetup.dependencies` describes the dependency. E.g Health depends on `Transformer health index` and `Tap changer health index`, `Transformer health index` group calculated base on several contributors, function details can be found in `[ext_function_name]` in the file. E.g For `Health` ext_function_name is configured as `[Health Weighted]`, the implementation is `common_calculate_weighted` which is pre-defined in healthlib.<br>  
+In the configuration file, under `Common` section `defaultsetup.components` has all the scores group, contributors listed, and functions and paramteres for each item. In `defaultsetup.dependencies` describes the dependency. E.g Health depends on `Transformer health index` and `Tap changer health index`, `Transformer health index` group calculated base on several contributors, function details can be found in `[ext_function_name]` in the file. E.g For `Health` ext_function_name is configured as `[Health Weighted]`, the implementation is `common_calculate_weighted` which is pre-defined in healthlib.
 
 
 Can we show cfg content in lab?
@@ -231,7 +227,7 @@ Below is the dependency of OOTB Substation Transformer scores.<br>
 
 ### ST model notebook 
 
-For ST(Substation Transformer), notebook is IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb as configured in cfg file.<br>   
+For ST(Substation Transformer), notebook is IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb as configured in cfg file.
 ![drawing](/img/apm_8.7/hpu_model_ws_notebook.png){ width=100% height=100% }<br>   
 
 Any permenant modification on notebook, will need save to a latest version to take affect, because each job binds with a version of the notebook, by default it's the `Latest` version.
@@ -239,26 +235,21 @@ Any permenant modification on notebook, will need save to a latest version to ta
 
 
 ### ST Watson Studio job 
-Job is Run-IBM-Transformers-Tap-Changers-DGA-4-0-0.<br>   
-Details can be check following below steps.<br>   
+Job is Run-IBM-Transformers-Tap-Changers-DGA-4-0-0.Details can be check following below steps.<br>   
 Login Watson Studio, enter the project, and click the `Job` tab, click the job defined in configruation file, and then click `Eidt Configuration`, click `Next` and `Next`, we can see by default it binds to `latest` version and runtime is `Default Python 3.8`, close the eidt page by clicking `X` on the right connor.
-
 ![drawing](/img/apm_8.7/hpu_model_ws_job.png){ width=100% height=100% }<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_job_02.png){ width=100% height=100% }<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_job_01.png){ width=100% height=100% }<br>   
 
 Log can be checked by click one of the history run, either check directly on the page or download to local.
-
 ![drawing](/img/apm_8.7/hpu_model_ws_job_03.png){ width=100% height=100% }<br>   
 ![drawing](/img/apm_8.7/hpu_model_ws_job_04.png){ width=100% height=100% }<br>   
 
-### Customize notebook model for DGA or NOC
+### Customize notebook model for NOC
 User can change some of the methodology how the score calculated as needed.<br>   
 
 For example, for customize the Criticality which is calculated 100% weight of NOC(Number Of Customers) by default.
 Login Watson Studio, enter the project, click the `Assets` tab, enter the notebook `IBM-Transformers-Tap-Changers-DGA-4.0.0.ipynb`,find the cell which defined function `calculate_number_of_customer`, comment out the old code, and write new customize NOC functiion based on customer's own methodology. Then save a latest version.
-
-
 ```
 //Code example.
 @maximo_function
@@ -309,6 +300,6 @@ os.environ['maximo_context'] = '{"maximoUrl":"https://<health/manage host>/maxim
 ```
 ![drawing](/img/apm_8.7/hpu_model_ws_notebook_debug.png){ width=100% height=100% }<br>  
 
-Click `Run` to run cell by cell or restart the kernel run the whole notebook.<br>   
+Click `Run` to run cell by cell or restart the kernel run the whole notebook.
 ![drawing](/img/apm_8.7/hpu_model_ws_notebook_run.png){ width=100% height=100% }<br>   
-**Note**, when debug in notebook directly, do not save as latest version, since it's hardcoded everything instead of getting those from health side.
+**Note**, when debug in notebook directly, do not save as latest version, since it's hardcoded everything instead of getting those input from health side.
